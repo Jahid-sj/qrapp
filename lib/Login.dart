@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:qrapp/Registration.dart';
+import 'package:qrapp/qrpage.dart';
 
 class Log extends StatefulWidget {
+
   const Log({super.key});
 
   @override
@@ -46,9 +48,18 @@ class _LogState extends State<Log> {
               ),
             ),
             ElevatedButton(onPressed:() {
-              Navigator.push(context,MaterialPageRoute(builder: (context)=> Reg()));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=> Qr()));
             }, child: Text('LOGIN',style: TextStyle(color: Colors.black),),
               style: TextButton.styleFrom(backgroundColor: Colors.white),
+            ),
+            SizedBox(
+              width: 100,
+              height: 60,
+            ),
+            ElevatedButton(onPressed:() {
+              Navigator.push(context,MaterialPageRoute(builder: (context)=> Reg()));
+            }, child: Text('New User? Register',style: TextStyle(color: Colors.black),),
+              style: TextButton.styleFrom(backgroundColor: Colors.limeAccent),
             )
           ],
         ),

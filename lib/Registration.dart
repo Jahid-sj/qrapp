@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qrapp/Login.dart';
 import 'package:qrapp/main.dart';
 import 'package:qrapp/qrpage.dart';
 
@@ -19,9 +20,13 @@ class _RegState extends State<Reg> {
           children: [
             SizedBox(
               width: 100,
-              height: 200,
+              height: 20,
             ),
             Text('Registration',style: TextStyle(fontSize: 30),),
+            SizedBox(
+              width: 100,
+              height: 50,
+            ),
             Container(
               width: 200,
               height: 100,
@@ -71,7 +76,7 @@ class _RegState extends State<Reg> {
               ),
             ),
             ElevatedButton(onPressed:() {
-              Navigator.push(context,MaterialPageRoute(builder: (context)=> Qr()));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=> Log()));
             }, child: Text('REGISTER',style: TextStyle(color: Colors.black),),
               style: TextButton.styleFrom(backgroundColor: Colors.white),
             )
