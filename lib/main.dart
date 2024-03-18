@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:qrapp/Login.dart';
 import 'package:qrapp/Registration.dart';
@@ -17,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Log()
+        home: Login()
     );
   }
 }

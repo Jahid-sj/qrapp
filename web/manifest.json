@@ -1,6 +1,6 @@
 {
-    "name": "qrapp",
-    "short_name": "qrapp",
+    "name": "registration_page",
+    "short_name": "registration_page",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

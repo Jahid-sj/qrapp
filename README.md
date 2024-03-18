@@ -1,4 +1,4 @@
-# qrapp
+# registration_page
 
 A new Flutter project.
 

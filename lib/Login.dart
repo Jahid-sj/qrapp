@@ -1,70 +1,123 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:qrapp/Registration.dart';
-import 'package:qrapp/qrpage.dart';
+import 'package:qrapp/registration.dart';
+import 'package:qrapp/info.dart';
 
-class Log extends StatefulWidget {
-
-  const Log({super.key});
-
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
   @override
-  State<Log> createState() => _LogState();
+  State<Login> createState() => _LoginState();
 }
 
-class _LogState extends State<Log> {
+class _LoginState extends State<Login> {
+  TextEditingController rollno = TextEditingController();
+  TextEditingController password = TextEditingController();
+  void log() async{
+    print(rollno.text);
+    print(password.text);
+    Uri uri=Uri.parse('https://scnner-web.onrender.com/api/login');
+    var response = await http.post(uri,
+        headers:<String,String>{
+          'Content-Type':'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'rollno':rollno.text,
+          'password':password.text
+        }));
+    print(response.statusCode);
+    print(response.body);
+    var data =jsonDecode(response.body);
+    print(data["message"]);
+    if(response.statusCode==200){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Profile() ,));
+    }
+    else{ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: data["message"]));}
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: Colors.teal,
+    return Scaffold(
+      backgroundColor: Colors.deepOrangeAccent,
       body: Center(
         child: Column(
           children: [
             SizedBox(
-              width: 100,
-              height: 200,
-            ),
-            Text('Login',style: TextStyle(fontSize: 30),),
-            Container(
-              width: 200,
               height: 100,
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)
-                    ),
-                    labelText: 'Email address'
-                ),
-              ),
             ),
-            Container(
-              width: 200,
-              height: 100,
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)
-                    ),
-                    labelText: 'Password'
-                ),
+            Text(
+              'LOGIN',
+              style: TextStyle(
+                fontSize: 28,
+                color: Colors.white,
               ),
-            ),
-            ElevatedButton(onPressed:() {
-              Navigator.push(context,MaterialPageRoute(builder: (context)=> Qr()));
-            }, child: Text('LOGIN',style: TextStyle(color: Colors.black),),
-              style: TextButton.styleFrom(backgroundColor: Colors.white),
             ),
             SizedBox(
-              width: 100,
-              height: 60,
+              height: 50,
             ),
-            ElevatedButton(onPressed:() {
-              Navigator.push(context,MaterialPageRoute(builder: (context)=> Reg()));
-            }, child: Text('New User? Register',style: TextStyle(color: Colors.black),),
-              style: TextButton.styleFrom(backgroundColor: Colors.limeAccent),
-            )
+            Container(
+              width: 300,
+              height: 50,
+              child: TextField(
+                controller: rollno,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter your Roll number',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              width: 300,
+              height: 50,
+              child: TextField(
+                controller: password,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter your Password',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              width: 100,
+              height: 30,
+              child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      log();
+                    });
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => Profile(),
+                    //     ));
+                  },
+                  child: Text(
+                    'Login',
+                    style: TextStyle(color: Colors.teal, fontSize: 18),
+                  )),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Reg(),
+                      ));
+                },
+                child: Text('Dont have an Account? Register Now'))
           ],
         ),
       ),
     );
   }
 }
-
